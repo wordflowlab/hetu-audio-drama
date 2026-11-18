@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-18",
+  "plugin_id": "org.wordflowlab.audio-drama",
+  "package_sha256": "95ab0357cce70a38643070f144a3b7a1c7a7d697b3573b1c0cc67c728584fa23",
+  "host_version": "hetu 0.12.0",
+  "platform": "darwin",
+  "architecture": "arm64",
+  "tabs": [
+    "角色与台本",
+    "录音候选",
+    "混音时间线",
+    "听审意见",
+    "接续创作"
+  ],
+  "empty_state": true,
+  "professional_actions": true,
+  "artifact_files": [
+    "有声剧混音.wav"
+  ],
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "widths": [
+    1360,
+    760
+  ],
+  "reduced_transparency": true,
+  "CAS_preserves_input": true,
+  "explicit_rebase": true,
+  "close_reopen": true,
+  "dirty_buffer_restore": true,
+  "page_errors": [],
+  "limits": [
+    "原生窗口材质、系统输入法及Windows/Linux未由本测试证明"
+  ]
+}

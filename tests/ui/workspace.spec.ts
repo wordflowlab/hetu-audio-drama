@@ -32,7 +32,7 @@ test("真实Electron审阅、专业操作、导出、冲突保留与关闭重开
     await mkdir(exports);
     app = await electron.launch({
       executablePath:
-        process.env.HETU_PACKAGED_APP ??
+        process.env.HETU_PACKAGED_APP ?? process.env.HETU_ELECTRON_EXECUTABLE ??
         createRequire(path.join(host, "package.json"))("electron"),
       args: process.env.HETU_PACKAGED_APP
         ? []
