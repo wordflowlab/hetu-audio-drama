@@ -2,7 +2,7 @@
   "date": "2026-11-18",
   "plugin_id": "org.wordflowlab.audio-drama",
   "package_sha256": "95ab0357cce70a38643070f144a3b7a1c7a7d697b3573b1c0cc67c728584fa23",
-  "host_version": "hetu 0.12.0",
+  "host_version": "hetu 0.12.2",
   "platform": "darwin",
   "architecture": "arm64",
   "tabs": [
