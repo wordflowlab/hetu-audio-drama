@@ -9,7 +9,7 @@
   },
   "description": {
     "zh-CN": "将角色台本、多个录音候选和效果声组织为可回放的时间线并确定性混音交付。",
-    "en": "Persistent creative engineering through external Agents and Hetu public SDK."
+    "en": "Organize roles, dialogue, recorded takes and timeline review, then export deterministic audio mixes."
   },
   "license": "Apache-2.0",
   "work_kinds": [
