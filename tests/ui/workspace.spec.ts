@@ -125,7 +125,7 @@ test("真实Electron审阅、专业操作、导出、冲突保留与关闭重开
         .getByRole("navigation", { name: "专业视图" })
         .getByRole("button", { name: config.tabs[index], exact: true })
         .click();
-    await tab(2);await page.getByRole("button",{name:"试听当前混音",exact:true}).click();const audio=page.getByLabel("实际有声剧混音");await expect.poll(()=>audio.evaluate((a:any)=>a.readyState)).toBeGreaterThanOrEqual(2);expect(await audio.evaluate((a:any)=>a.duration)).toBeGreaterThan(4);await audio.evaluate((a:any)=>a.play());await expect.poll(()=>audio.evaluate((a:any)=>a.currentTime)).toBeGreaterThan(0);await audio.evaluate((a:any)=>a.pause());await page.getByRole("button",{name:"导出固定WAV",exact:true}).click();await expect(page.getByRole("status")).toContainText("已按固定修订导出",{timeout:120000});const wavFile=(await readdir(exports)).find(f=>f.endsWith(".wav"))!;const b=await readFile(path.join(exports,wavFile));expect(b.toString("ascii",0,4)).toBe("RIFF");expect(b.readUInt32LE(4)+8).toBe(b.length);
+    await tab(2);expect(await page.locator(".mix-bar").nth(1).evaluate((e:any)=>parseFloat(e.style.left))).toBeGreaterThan(0);await page.getByRole("button",{name:"试听当前混音",exact:true}).click();const audio=page.getByLabel("实际有声剧混音");await expect.poll(()=>audio.evaluate((a:any)=>a.readyState),{timeout:120000}).toBeGreaterThanOrEqual(2);expect(await audio.evaluate((a:any)=>a.duration)).toBeGreaterThan(4);await audio.evaluate((a:any)=>a.play());await expect.poll(()=>audio.evaluate((a:any)=>a.currentTime)).toBeGreaterThan(0);await audio.evaluate((a:any)=>a.pause());await page.getByRole("button",{name:"导出固定WAV",exact:true}).click();await expect(page.getByRole("status")).toContainText("已按固定修订导出",{timeout:120000});const wavFile=(await readdir(exports)).find(f=>f.endsWith(".wav"))!;const b=await readFile(path.join(exports,wavFile));expect(b.toString("ascii",0,4)).toBe("RIFF");expect(b.readUInt32LE(4)+8).toBe(b.length);
     const close = page.getByRole("button", { name: "关闭依据" });
     if (await close.count()) await close.click();
     await tab(config.tabs.length - 1);
@@ -138,9 +138,11 @@ test("真实Electron审阅、专业操作、导出、冲突保留与关闭重开
     );
     expect(clipboard).toContain(manifest.id);
     expect(clipboard).toContain(record.object.object_id);
+    const normalDisplay = await app.context().newCDPSession(page);
+    await normalDisplay.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-reduced-transparency",value:"no-preference"},{name:"prefers-contrast",value:"no-preference"}]});
     for (const theme of ["light", "dark"] as const) {
       await app.evaluate(({webContents}:any,theme:any)=>{for(const w of webContents.getAllWebContents())if(w.getURL().startsWith("hetu-plugin:"))w.send("plugin:preferences",{theme,language:"zh-CN"});},theme);
-      await page.emulateMedia({ colorScheme: theme });
+      await normalDisplay.send("Emulation.setEmulatedMedia",{features:[{name:"prefers-color-scheme",value:theme},{name:"prefers-reduced-transparency",value:"no-preference"},{name:"prefers-contrast",value:"no-preference"}]});
       for (const width of [1360, 760]) {
         await page.setViewportSize({ width, height: 900 });
         await page.screenshot({
