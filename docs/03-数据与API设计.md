@@ -28,3 +28,5 @@ Core现有扩展对象仓储负责身份、对象修订、摘要、来源及审�
 参数非法返回invalid_input，过期基线revision_conflict，依据变化hetu.stale_evidence，超预算hetu.budget_exceeded。未知结果沿原operation_key查询，只有明确not_found才能用原输入、原键继续；不得换键重发。导出按固定对象分块，核验偏移、总长度及分块和完整摘要。
 
 听审意见固定timeline_sha256；时间线变化后旧意见保持原依据并返回stale_notes，不把旧坐标默套新混音。素材记录摘要与实际文件摘要分别核验。
+
+大工程写入和原键回读可传detail=summary，返回固定对象元数据及content_read；按固定修订export_project的8192字节JSON分块恢复完整工程。get_source按UTF-8偏移分块，complete只表示返回范围，不表示已理解全文。GUI可在受管桌面传输使用full；不能为机器入口切换all-tools或依赖窗口。
