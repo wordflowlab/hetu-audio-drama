@@ -338,6 +338,10 @@
                     "type": "string",
                     "minLength": 0,
                     "maxLength": 4000
+                  },
+                  "timeline_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
                   }
                 },
                 "required": [
@@ -346,7 +350,8 @@
                   "end_ms",
                   "comment",
                   "status",
-                  "resolution"
+                  "resolution",
+                  "timeline_sha256"
                 ]
               },
               "maxItems": 1000
@@ -768,6 +773,10 @@
                         "type": "string",
                         "minLength": 0,
                         "maxLength": 4000
+                      },
+                      "timeline_sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
                       }
                     },
                     "required": [
@@ -776,7 +785,8 @@
                       "end_ms",
                       "comment",
                       "status",
-                      "resolution"
+                      "resolution",
+                      "timeline_sha256"
                     ]
                   },
                   "maxItems": 1000
@@ -1400,6 +1410,10 @@
                   "type": "string",
                   "minLength": 0,
                   "maxLength": 4000
+                },
+                "timeline_sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
                 }
               },
               "required": [
@@ -1408,7 +1422,8 @@
                 "end_ms",
                 "comment",
                 "status",
-                "resolution"
+                "resolution",
+                "timeline_sha256"
               ]
             }
           },

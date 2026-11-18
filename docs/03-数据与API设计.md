@@ -26,3 +26,5 @@ Core现有扩展对象仓储负责身份、对象修订、摘要、来源及审�
 ## 错误与恢复
 
 参数非法返回invalid_input，过期基线revision_conflict，依据变化hetu.stale_evidence，超预算hetu.budget_exceeded。未知结果沿原operation_key查询，只有明确not_found才能用原输入、原键继续；不得换键重发。导出按固定对象分块，核验偏移、总长度及分块和完整摘要。
+
+听审意见固定timeline_sha256；时间线变化后旧意见保持原依据并返回stale_notes，不把旧坐标默套新混音。素材记录摘要与实际文件摘要分别核验。

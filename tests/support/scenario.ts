@@ -1,4 +1,5 @@
 import {createHash} from "node:crypto";
+import {canonical} from "../../vendor/project-store.ts";
 import {newProject} from "../../src/domain/model.ts";
 export const original="林溪在雨港邮局等信。\n她把旧钥匙放进信封。\n\n第二天，她决定出发。\n";
 export const sha=(v:string|Uint8Array)=>createHash("sha256").update(v).digest("hex");
@@ -8,7 +9,7 @@ export const base=(r:any,key:string)=>({object_id:r.object.object_id,expected_re
 export const selection=(r:any)=>({object_id:r.object.object_id,revision:r.object.revision});
 export function wav(value=6000,frames=800,rate=8000){const b=Buffer.alloc(44+frames*2);b.write('RIFF');b.writeUInt32LE(b.length-8,4);b.write('WAVEfmt ',8);b.writeUInt32LE(16,16);b.writeUInt16LE(1,20);b.writeUInt16LE(1,22);b.writeUInt32LE(rate,24);b.writeUInt32LE(rate*2,28);b.writeUInt16LE(2,32);b.writeUInt16LE(16,34);b.write('data',36);b.writeUInt32LE(frames*2,40);for(let n=0;n<frames;n++)b.writeInt16LE(value,44+n*2);return b;}
 
-export function scenario(_work:any=sourceRef.work_ref):any {return {...newProject("雨港来信"),...{
+export function scenario(_work:any=sourceRef.work_ref):any {const p:any={...newProject("雨港来信"),...{
   "roles": [
     {
       "id": "narrator",
@@ -51,4 +52,4 @@ export function scenario(_work:any=sourceRef.work_ref):any {return {...newProjec
       "resolution": ""
     }
   ]
-}};}
+}};for(const note of p.notes)note.timeline_sha256=sha(canonical({roles:p.roles,lines:p.lines,takes:p.takes,clips:p.clips}));return p;}
